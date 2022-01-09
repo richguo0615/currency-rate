@@ -1,10 +1,14 @@
 ### Start API server (option 1)
 ```
 # mac
-./app
+./cmd/app
 
 # windows
-./app.exe
+./cmd/app.exe
+
+# app will output
+...
+[GIN-debug] Listening and serving HTTP on :8880
 ```
 
 ### Start API server (option 2)
