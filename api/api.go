@@ -38,7 +38,8 @@ func CurrencyRates(c *gin.Context) {
 		return
 	}
 
-	req, err := rateSrv.GetReq(c)
+	from, to, amount := c.Query("from"), c.Query("to"), c.Query("amount")
+	err = rateMap.Validate(from, to, amount)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"message": "invalid input",
@@ -47,7 +48,7 @@ func CurrencyRates(c *gin.Context) {
 		return
 	}
 
-	err = rateMap.Validate(req.From, req.To)
+	req, err := rateSrv.GetReq(from, to, amount)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"message": "invalid input",

@@ -2,7 +2,6 @@ package currency_rate
 
 import (
 	"errors"
-	"github.com/gin-gonic/gin"
 	"strconv"
 	"strings"
 )
@@ -13,12 +12,10 @@ type RateReq struct {
 	Amount float64
 }
 
-func GetReq(c *gin.Context) (req RateReq, err error) {
-	from, to := c.Query("from"), c.Query("to")
-	amountStr := c.Query("amount")
+func GetReq(from, to, amountStr string) (req RateReq, err error) {
 	amount, err := strconv.ParseFloat(amountStr, 64)
 	if err != nil {
-		return RateReq{}, errors.New("amount is required float type")
+		return RateReq{}, errors.New("req.amount is required float type")
 	}
 
 	return RateReq{

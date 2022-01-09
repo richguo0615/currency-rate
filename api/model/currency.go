@@ -19,12 +19,15 @@ func (d CurrencyData) GetRateMap() (CurrencyRateMap, error) {
 	return rateMap, nil
 }
 
-func (m CurrencyRateMap) Validate(from, to string) error {
+func (m CurrencyRateMap) Validate(from, to, amount string) error {
 	if from == "" {
 		return errors.New(fmt.Sprintf("req.from can not be null"))
 	}
 	if to == "" {
 		return errors.New(fmt.Sprintf("req.to can not be null"))
+	}
+	if amount == "" {
+		return errors.New(fmt.Sprintf("req.amount can not be null"))
 	}
 
 	rateList, ok := m[from]
