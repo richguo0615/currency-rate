@@ -4,6 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	rateSrv "github.com/richguo0615/currency-rate/api/service/currency-rate"
 	"net/http"
+	"strings"
 )
 
 var (
@@ -38,7 +39,7 @@ func CurrencyRates(c *gin.Context) {
 		return
 	}
 
-	from, to, amount := c.Query("from"), c.Query("to"), c.Query("amount")
+	from, to, amount := getRateQuery(c)
 	err = rateMap.Validate(from, to, amount)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
@@ -68,4 +69,8 @@ func CurrencyRates(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"result": res,
 	})
+}
+
+func getRateQuery(c *gin.Context) (from, to, amount string) {
+	return strings.ToUpper(c.Query("from")), strings.ToUpper(c.Query("to")), strings.ToUpper(c.Query("amount"))
 }
