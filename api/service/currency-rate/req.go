@@ -4,6 +4,7 @@ import (
 	"errors"
 	"github.com/gin-gonic/gin"
 	"strconv"
+	"strings"
 )
 
 type RateReq struct {
@@ -21,8 +22,8 @@ func GetReq(c *gin.Context) (req RateReq, err error) {
 	}
 
 	return RateReq{
-		From:   from,
-		To:     to,
+		From:   strings.ToUpper(from),
+		To:     strings.ToUpper(to),
 		Amount: amount,
 	}, nil
 }

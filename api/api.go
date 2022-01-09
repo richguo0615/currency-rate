@@ -30,16 +30,33 @@ var (
 
 func CurrencyRates(c *gin.Context) {
 	data := rateSrv.ParseRateData(rateJson)
-
-	req, err := rateSrv.GetReq(c)
+	rateMap, err := data.GetRateMap()
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": err.Error(),
 		})
 		return
 	}
 
-	res, err := rateSrv.GetRate(data, req)
+	req, err := rateSrv.GetReq(c)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"message": "invalid input",
+			"error": err.Error(),
+		})
+		return
+	}
+
+	err = rateMap.Validate(req.From, req.To)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"message": "invalid input",
+			"error": err.Error(),
+		})
+		return
+	}
+
+	res, err := rateSrv.CountRate(rateMap, req)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": err.Error(),
