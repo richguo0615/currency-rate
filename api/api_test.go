@@ -28,7 +28,7 @@ func TestCurrencyRates(t *testing.T) {
 	}{
 		// TODO: Add test cases.
 		{
-			name: "case1",
+			name: "case1 - TWD -> USD 四捨五入",
 			args: args{
 				from:   "TWD",
 				to:     "USD",
@@ -36,36 +36,50 @@ func TestCurrencyRates(t *testing.T) {
 			},
 			want: want{
 				code: http.StatusOK,
-				res:  currency_rate.RateRes{
-					Result:  "0.03",
+				res: currency_rate.RateRes{
+					Result: "0.03",
 				},
 			},
 		},
 		{
-			name: "case2",
+			name: "case2 - JPY -> USD 四捨五入",
 			args: args{
-				from:   "TWD",
-				to:     "JPY",
+				from:   "JPY",
+				to:     "USD",
 				amount: "1",
 			},
 			want: want{
 				code: http.StatusOK,
-				res:  currency_rate.RateRes{
-					Result:  "3.67",
+				res: currency_rate.RateRes{
+					Result: "0.01",
 				},
 			},
 		},
 		{
-			name: "case3",
+			name: "case3 - 未填from值",
 			args: args{
 				from:   "",
 				to:     "JPY",
 				amount: "1",
 			},
 			want: want{
+				code: http.StatusBadRequest,
+				res: currency_rate.RateRes{
+					Error: "req.from can not be null",
+				},
+			},
+		},
+		{
+			name: "case4 - twd -> JPY 千分位",
+			args: args{
+				from:   "twd",
+				to:     "JPY",
+				amount: "1000.12589",
+			},
+			want: want{
 				code: http.StatusOK,
-				res:  currency_rate.RateRes{
-					Error:   "req.from can not be null",
+				res: currency_rate.RateRes{
+					Result: "3,669.46",
 				},
 			},
 		},
