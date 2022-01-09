@@ -1,0 +1,59 @@
+definitions:
+  currency_rate.RateRes:
+    properties:
+      error:
+        type: string
+      message:
+        type: string
+      res:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /currency/rate:
+    get:
+      consumes:
+      - application/json
+      description: 填入 "來源幣別"、"目標幣別"、"金額數字"，計算出當前匯率結果。
+      parameters:
+      - description: 來源幣別
+        enum:
+        - TWD
+        - JPY
+        - USD
+        in: query
+        name: from
+        required: true
+        type: string
+      - description: 目標幣別
+        enum:
+        - TWD
+        - JPY
+        - USD
+        in: query
+        name: to
+        required: true
+        type: string
+      - default: 0
+        description: 金額數字
+        in: query
+        name: amount
+        required: true
+        type: number
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"res": "3.67"}'
+          schema:
+            $ref: '#/definitions/currency_rate.RateRes'
+        "400":
+          description: '{"message": "invalid input", "error": "req.from can not be
+            null"}'
+          schema:
+            $ref: '#/definitions/currency_rate.RateRes'
+      summary: 計算匯率
+      tags:
+      - Currency
+swagger: "2.0"

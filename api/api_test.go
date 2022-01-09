@@ -37,7 +37,7 @@ func TestCurrencyRates(t *testing.T) {
 			want: want{
 				code: http.StatusOK,
 				res: currency_rate.RateRes{
-					Result: "0.03",
+					Res: "0.03",
 				},
 			},
 		},
@@ -51,7 +51,7 @@ func TestCurrencyRates(t *testing.T) {
 			want: want{
 				code: http.StatusOK,
 				res: currency_rate.RateRes{
-					Result: "0.01",
+					Res: "0.01",
 				},
 			},
 		},
@@ -79,7 +79,7 @@ func TestCurrencyRates(t *testing.T) {
 			want: want{
 				code: http.StatusOK,
 				res: currency_rate.RateRes{
-					Result: "3,669.46",
+					Res: "3,669.46",
 				},
 			},
 		},
@@ -105,8 +105,8 @@ func TestCurrencyRates(t *testing.T) {
 			}
 			switch w.Code {
 			case http.StatusOK:
-				if res.Result != tt.want.res.Result {
-					t.Fatalf("want.Result: %s, but got: %s", tt.want.res.Result, res.Result)
+				if res.Res != tt.want.res.Res {
+					t.Fatalf("want.Res: %s, but got: %s", tt.want.res.Res, res.Res)
 				}
 			case http.StatusBadRequest:
 				if res.Error != tt.want.res.Error {
