@@ -1,12 +1,11 @@
 ### Start API server (option 1)
 ```
-# mac
-./cmd/app
+./cmd/app       # mac os
+./cmd/app.exe   # windows
+```
 
-# windows
-./cmd/app.exe
-
-# app will output
+> 確認 Server 啟動，即可開啟 [本地的 Swagger API 文件](http://localhost:8880/swagger/index.html#/Currency)，測試API
+```
 ...
 [GIN-debug] Listening and serving HTTP on :8880
 ```
@@ -20,7 +19,9 @@ go run main.go
 
 ### Swagger API Docs
 > 開啟 [本地 Swagger API 文件](http://localhost:8880/swagger/index.html#/Currency)
-> 說明：匯率換算API [GET] [{baseUrl}/currency/rate](http://localhost:8880/currency/rate)
+
+##### API 清單
+* 匯率換算API [GET] [{baseUrl}/currency/rate](http://localhost:8880/currency/rate)
 
 ### API 測試
 ```
@@ -38,5 +39,3 @@ PASS
 # here is test file path
 ./api/api_test.go
 ```
-
-
