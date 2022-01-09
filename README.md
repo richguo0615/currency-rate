@@ -30,6 +30,9 @@ go test -v -run=TestCurrencyRates ./api
     --- PASS: TestCurrencyRates/case3_-_未填from值 (0.00s)
     --- PASS: TestCurrencyRates/case4_-_twd_->_JPY_千分位 (0.00s)
 PASS
+
+# here is test file path
+./api/api_test.go
 ```
 
 
