@@ -1,4 +1,4 @@
-### Start API server (option 1)
+### Start API server - binary app (option 1)
 ```
 ./cmd/app       # mac os
 ./cmd/app.exe   # windows
@@ -10,7 +10,12 @@
 [GIN-debug] Listening and serving HTTP on :8880
 ```
 
-### Start API server (option 2)
+### Start API server - use docker image (option 2)
+```
+docker run richguo0615dk/currency-rate-api
+```
+
+### Start API server - go (option 3)
 ```
 # install go 1.16
 go mod tidy
